@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use Phalcon\Di\FactoryDefault;
+use Dotenv\Dotenv;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'true');
@@ -12,7 +12,7 @@ define('APP_PATH', BASE_PATH . '/app');
 require __DIR__ . '/../vendor/autoload.php';
 require_once APP_PATH . '/Bootstrap.php';
 
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 $app = new Bootstrap();

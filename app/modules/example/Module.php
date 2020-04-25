@@ -5,8 +5,6 @@ namespace ProjectName\Example;
 
 use Phalcon\Di\DiInterface;
 use Phalcon\Loader;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Config;
 
@@ -19,8 +17,9 @@ class Module implements ModuleDefinitionInterface
 
         $loader->registerNamespaces([
             __NAMESPACE__ . '\Controllers' => __DIR__ . '/controllers',
+            __NAMESPACE__ . '\Controllers\Api' => __DIR__ . '/controllers/api',
+            __NAMESPACE__ . '\Controllers\Web' => __DIR__ . '/controllers/web',
             __NAMESPACE__ . '\Models' => __DIR__ . '/models',
-            __NAMESPACE__ . '\Views' => __DIR__ . '/views',
         ]);
 
         $loader->register();

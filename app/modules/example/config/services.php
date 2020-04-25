@@ -23,13 +23,5 @@ $view->setViewsDir(__DIR__ . '/../resources/views/');
 
 
 /**
- * Database connection is created based in the parameters defined in the configuration file
+ * Register your custom services here
  */
-$di['db'] = function () use ($config) {
-    $dbConfig = $config->database->toArray();
-
-    $dbAdapter = '\Phalcon\Db\Adapter\Pdo\\' . $dbConfig['adapter'];
-    unset($config['adapter']);
-
-    return new $dbAdapter($dbConfig);
-};

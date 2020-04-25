@@ -22,5 +22,5 @@ return new Config([
         'baseUri'               => getenv('BASE_URI') ?: '/',
         'defaultModule'         => getenv('DEFAULT_MODULE'),
     ],
-    'version' => '0.1.0',
+    'version' => getenv('APP_VERSION'),
 ]);

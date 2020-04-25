@@ -3,6 +3,7 @@
 namespace ProjectName\Example\Controllers\Api;
 
 use ProjectName\Example\Controllers\BaseController;
+use ProjectName\Example\Models\User;
 
 class IndexController extends BaseController
 {
@@ -12,7 +13,11 @@ class IndexController extends BaseController
 
     public function indexAction()
     {
-        print_r($this->dispatcher->getParams());
         echo '{"version":1}';
+    }
+
+    public function getAction(){
+        $u = User::find();
+        echo json_encode($u->toArray());
     }
 }
