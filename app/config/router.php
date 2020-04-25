@@ -1,7 +1,11 @@
 <?php
 
-/** @var \Phalcon\Mvc\Router $router */
-/** @var \Phalcon\Di $container */
+/** @var Router $router */
+
+use Phalcon\Di;
+use Phalcon\Mvc\Router;
+
+/** @var Di $container */
 
 
 $router = $container->getRouter();
@@ -24,6 +28,58 @@ $router->add('/', [
     'action' => isset($modules[$defaultModule]['routing']['defaultAction']) ?
         $this->modules[$defaultModule]['routing']['defaultAction'] : 'index'
 ]);
+
+$router->add('/:params', array(
+    'namespace' => $this->modules[$defaultModule]['namespace']['webController'],
+    'module' => $defaultModule,
+    'controller' => isset($this->modules[$defaultModule]['routing']['defaultController']) ?
+        $this->modules[$defaultModule]['routing']['defaultController'] : 'index',
+    'action' => isset($this->modules[$defaultModule]['routing']['defaultAction']) ?
+        $this->modules[$defaultModule]['routing']['defaultAction'] : 'index',
+    'params' => 1
+));
+
+$router->add('/:controller/:params', array(
+    'namespace' => $this->modules[$defaultModule]['namespace']['webController'],
+    'module' => $defaultModule,
+    'controller' => 1,
+    'action' => isset($this->modules[$defaultModule]['routing']['defaultAction']) ?
+        $this->modules[$defaultModule]['routing']['defaultAction'] : 'index',
+    'params' => 2
+));
+
+$router->add('/:controller/:action/:params', array(
+    'namespace' => $this->modules[$defaultModule]['namespace']['webController'],
+    'module' => $defaultModule,
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3
+));
+
+$router->add('/api/:params', array(
+    'namespace' => $this->modules[$defaultModule]['namespace']['apiController'],
+    'module' => $defaultModule,
+    'controller' => isset($this->modules[$defaultModule]['routing']['defaultController']) ? $this->modules[$defaultModule]['routing']['defaultController'] : 'index',
+    'action' => isset($this->modules[$defaultModule]['routing']['defaultAction']) ? $this->modules[$defaultModule]['routing']['defaultAction'] : 'index',
+    'params' => 1
+));
+
+$router->add('/api/:controller/:params', array(
+    'namespace' => $this->modules[$defaultModule]['namespace']['apiController'],
+    'module' => $defaultModule,
+    'controller' => 1,
+    'action' => isset($this->modules[$defaultModule]['routing']['defaultAction']) ?
+        $this->modules[$defaultModule]['routing']['defaultAction'] : 'index',
+    'params' => 2
+));
+
+$router->add('/api/:controller/:action/:params', array(
+    'namespace' => $this->modules[$defaultModule]['namespace']['apiController'],
+    'module' => $defaultModule,
+    'controller' => 1,
+    'action' => 2,
+    'params' => 3
+));
 
 $router->notFound([
     'namespace' => 'App\Common\Controllers',
