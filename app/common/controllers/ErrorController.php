@@ -9,18 +9,17 @@ class ErrorController extends Controller
 {
     public function initialize()
     {
-        $this->view->setViewsDir(__DIR__ . '/../views');
+//        $this->view->setLayout('main');
     }
 
     public function notFoundAction()
     {
-        $this->view->setLayoutsDir(__DIR__ . '/../views');
-        echo '404 - not found';
+//        echo '404 - not found';
     }
 
     public function serverErrorAction()
     {
-        echo 'Server Error';
+//        echo 'Server Error';
     }
 
 }

@@ -12,7 +12,6 @@ class IndexController extends BaseController
 
     public function indexAction()
     {
-//        $this->view->disable();
         print_r($this->dispatcher->getParams());
         echo '{"version":1}';
     }

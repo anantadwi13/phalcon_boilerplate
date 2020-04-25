@@ -1,26 +1,26 @@
 <?php
 
 use Phalcon\Config;
+use Phalcon\Di;
 use Phalcon\Mvc\View;
-use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 
 /** @var Config $config */
+/** @var Di $di */
+
 
 /**
  * View
+ *
+ * Override viewsDir, it will use common layouts
+ *
+ * @var View $view
  */
-$di['view'] = function () {
-    $view = new View();
+$view = $di->get('view');
+$view->setViewsDir(__DIR__ . '/../resources/views/');
+//$view->setLayoutsDir(__DIR__ . '/../resources/layouts/');
+//$view->setPartialsDir(__DIR__ . '/../resources/partials/');
+//$view->setLayout('main');
 
-    $view->setViewsDir(__DIR__ . '/../views');
-
-    $view->registerEngines([
-        '.volt' => 'voltService',
-        '.phtml' => PhpEngine::class
-    ]);
-
-    return $view;
-};
 
 /**
  * Database connection is created based in the parameters defined in the configuration file

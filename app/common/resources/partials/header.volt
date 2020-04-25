@@ -1,0 +1,1 @@
+<div><a href="{{ url('/') }}">Home</a></div>

@@ -1,6 +1,8 @@
 <?php
 
-return new \Phalcon\Config([
+use Phalcon\Config;
+
+return new Config([
     'mode' => getenv('APP_MODE') ?: 'DEVELOPMENT', //DEVELOPMENT, PRODUCTION
     'database' => [
         'adapter'     => getenv('DB_ADAPTER'),
@@ -12,12 +14,13 @@ return new \Phalcon\Config([
         'charset'     => getenv('DB_CHARSET'),
     ],
     'application' => [
-        'appDir'         => APP_PATH . '/',
-        'pluginsDir'     => APP_PATH . '/plugins/',
-        'libraryDir'     => APP_PATH . '/library/',
-        'cacheDir'       => BASE_PATH . '/cache/',
-        'baseUri'        => getenv('BASE_URI') ?: '/',
-        'defaultModule'  => getenv('DEFAULT_MODULE'),
+        'appDir'                => APP_PATH . '/',
+        'commonResourceDir'     => APP_PATH . '/common/resources/',
+        'pluginsDir'            => APP_PATH . '/plugins/',
+        'libraryDir'            => APP_PATH . '/library/',
+        'cacheDir'              => BASE_PATH . '/cache/',
+        'baseUri'               => getenv('BASE_URI') ?: '/',
+        'defaultModule'         => getenv('DEFAULT_MODULE'),
     ],
     'version' => '0.1.0',
 ]);

@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use Phalcon\Config;
+use Phalcon\Di;
 use Phalcon\Escaper;
 use Phalcon\Events\Event;
 use Phalcon\Flash\Direct as Flash;
@@ -16,8 +18,8 @@ use Phalcon\Url as UrlResolver;
 
 /**
  * Shared configuration service
- * @var \Phalcon\Di $container
- * @var \Phalcon\Config $config
+ * @var Di $container
+ * @var Config $config
  */
 $container->setShared('config', function () use ($config) {
     return $config;
@@ -36,7 +38,7 @@ $container->setShared('url', function () {
     $config = $this->getConfig();
 
     $url = new UrlResolver();
-    $url->setBaseUri($config->application->baseUri);
+    $url->setBaseUri($config->application->baseUri . '/');
 
     return $url;
 });
@@ -73,7 +75,11 @@ $container->setShared('view', function () {
 
     $view = new View();
     $view->setDI($this);
-    $view->setViewsDir(APP_PATH . '/common/views');
+    $view->setViewsDir($config->application->commonResourceDir . '/views/');
+    $view->setLayoutsDir($config->application->commonResourceDir . '/layouts/');
+    $view->setPartialsDir($config->application->commonResourceDir . '/partials/');
+    $view->setLayout('main');
+    $view->disableLevel(View::LEVEL_MAIN_LAYOUT);
 
     $view->registerEngines([
         '.volt' => 'voltService',
@@ -153,6 +159,17 @@ $container->setShared('dispatcher', function () {
     $eventsManager->attach(
         'dispatch:beforeException',
         function (Event $event, Dispatcher $dispatcher, Exception $exception) {
+            /** @var Config $config */
+            $config = $dispatcher->getDI()->getConfig();
+            /** @var View $view */
+            $view = $dispatcher->getDI()->get('view');
+            // Reset Base Directory Views
+            $view->setViewsDir($config->application->commonResourceDir . '/views/');
+            $view->setLayoutsDir($config->application->commonResourceDir . '/layouts/');
+            $view->setPartialsDir($config->application->commonResourceDir . '/partials/');
+            $view->setLayout('main');
+
+
             // 404
             if ($exception instanceof \Phalcon\Dispatcher\Exception) {
                 $dispatcher->forward(
