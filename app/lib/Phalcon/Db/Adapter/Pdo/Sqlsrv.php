@@ -339,7 +339,7 @@ class Sqlsrv extends AbstractPdo
             $cursor = PDO::CURSOR_FWDONLY;
         }
 
-        $sqlStatement = str_replace('rowcount', '[rowcount]', $sqlStatement);
+        $sqlStatement = str_replace('AS rowcount ', 'AS [rowcount] ', $sqlStatement);
 
         $statement = null;
         if (is_array($bindParams)) {

@@ -34,7 +34,7 @@ class PdoSqlsrv extends Pdo
                 parent::numRows();
             }
 
-            $this->_rowCount = $rowCount;
+            $this->rowCount = $rowCount;
         }
 
         return $rowCount;
